@@ -1,0 +1,15 @@
+body {
+    background: magenta ;
+    
+}
+
+.menu { background: #fff000;}
+.menu a.button {
+        background :#0e0f0f;
+        font: 90% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+        font-weight: bold;
+}
+.menu a.button:link {text-decoration: none} 
+.menu a.button:visited {text-decoration: none} 
+.menu a.button:active {text-decoration: none} 
+.menu a.button:hover {text-decoration: none; background-color:yellow;color:blue}
