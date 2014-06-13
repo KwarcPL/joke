@@ -9,12 +9,5 @@ class Joke(models.Model):
     number_of_grades = models.IntegerField('number_of_grades')
     tags = models.CharField('tags', max_length=100)
 
-class User(models.Model):
-    login = models.CharField('login', max_length=50)
-    password = models.CharField('password', max_length=50)
-    email = models.EmailField('email')
-    registration_date = models.DateTimeField('registration_date')
-    banned = models.BooleanField('banned')
-    mod = models.BooleanField('mod')
 
 
