@@ -8,7 +8,7 @@ from zartomat.forms import LoginForm
 from django.contrib import auth
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-
+from django.contrib.auth.models import AnonymousUser
 
 
 
@@ -21,10 +21,10 @@ def modUsersList(request):
     return HttpResponse(get_template('moduserslist.html').render(Context({'list' : userlist})))
 
 def home(request):
-    if "username" not in request.session:
+    if isinstance(request.user,AnonymousUser):
         return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0'})))
     else:    
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.session['username'],'state' :'1'})))
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
 
 
 
@@ -35,12 +35,11 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None and user.is_active:
             auth.login(request,user)
-            request.session['username'] = username
             return HttpResponseRedirect("/loginaaa/")
         else:
             return HttpResponseRedirect("/loginsad/")
     
-    if 'username' in request.session:
+    if not isinstance(request.user,AnonymousUser):
         return HttpResponseRedirect("/home/")
     
     return render_to_response('login.html', {
@@ -50,7 +49,7 @@ def login(request):
 
 
 def register(request):
-    if 'username' in request.session:
+    if not isinstance(request.user,AnonymousUser) :
         return HttpResponseRedirect("/home/")
 
     if request.method == 'POST':
