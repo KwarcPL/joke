@@ -19,7 +19,10 @@ def modUsersList(request):
     return HttpResponse(get_template('moduserslist.html').render(Context({'list' : userlist})))
 
 def home(request):
-    return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', })))
+    if "username" not in request.session:
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" })))
+    else:    
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.session['username']})))
 
 
 
