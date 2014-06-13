@@ -8,7 +8,7 @@ from zartomat.forms import LoginForm
 from django.contrib import auth
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import AnonymousUser, Permission
 
 
 
@@ -56,6 +56,8 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             new_user = form.save()
+            permission = Permission.objects.get(codename='add_joke')
+            new_user.user_permissions.add(permission)
             return HttpResponseRedirect("/newuser/")
     else:
         form = UserCreationForm()

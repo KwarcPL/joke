@@ -10,4 +10,5 @@ class Joke(models.Model):
     tags = models.CharField('tags', max_length=100)
 
 
-
+    class Meta:
+        permissions = (("add_joke", "Can add joke"))
