@@ -5,7 +5,16 @@
 <link href="{% static "style.css" %}" rel="stylesheet" >
 
 <div class="menu">
-    <a href="/home" class="button">Główna</a>    <a href="/home" class="button">Poczekalnia</a>   <a href="/home" class="button">Szukaj</a> {{ addJoke}}  {{ loginRegField }}  
+    <a href="/home" class="button">Główna</a>    <a href="/home" class="button">Poczekalnia</a>   <a href="/home" class="button">Szukaj</a>  
+
+    {% if state == '0' %}
+    <a  class="button" href="/login" > Zaloguj</a> <a  class="button" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar] 
+    {% else %}
+    
+    <a class="button" href="/logout">Dodaj</a>    <a class="button" href="/profile">{{user}}</a> <a class="button"  href="/logout">Wyloguj</a>
+    {% endif %}
+ 
+
 </div>
 </head>
 <body>

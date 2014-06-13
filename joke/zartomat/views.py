@@ -22,9 +22,9 @@ def modUsersList(request):
 
 def home(request):
     if "username" not in request.session:
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" })))
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0'})))
     else:    
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.session['username']})))
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.session['username'],'state' :'1'})))
 
 
 
@@ -45,6 +45,7 @@ def login(request):
     
     return render_to_response('login.html', {
                                         "title": 'login',
+                                        "state": '0',
                                             }, context_instance=RequestContext(request))
 
 
@@ -60,6 +61,7 @@ def register(request):
     else:
         form = UserCreationForm()
     return render_to_response('register.html', {
+                                        "state": '0',
                                         "form": form,
                                             }, context_instance=RequestContext(request))
 
