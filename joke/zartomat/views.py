@@ -6,6 +6,8 @@ from django.template.loader import get_template
 from django.template import Context, RequestContext
 from zartomat.forms import LoginForm
 from django.contrib import auth
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 
 
@@ -44,6 +46,24 @@ def login(request):
     return render_to_response('login.html', {
                                         "title": 'login',
                                             }, context_instance=RequestContext(request))
+
+
+def register(request):
+    if 'username' in request.session:
+        return HttpResponseRedirect("/home/")
+
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return HttpResponseRedirect("/newuser/")
+    else:
+        form = UserCreationForm()
+    return render_to_response('register.html', {
+                                        "form": form,
+                                            }, context_instance=RequestContext(request))
+
+   
 
 
 def logout(request):
