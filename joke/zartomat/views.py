@@ -29,6 +29,9 @@ def home(request):
 
 def wait(request):
     jokes = Joke.objects.all()
+    for joke in jokes:
+        joke.published_date = date.isoformat(joke.published_date)
+
     if  isinstance(request.user,AnonymousUser):
         return render_to_response('wait.html', {
                                         'state': '0',
