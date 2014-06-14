@@ -27,8 +27,7 @@ def home(request):
         return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
 
 def wait(request):
-    jokes = [x.joke_text for x in Joke.objects.all()]
-    print jokes
+    jokes = Joke.objects.all()
     return render_to_response('wait.html', {
                                         "title": 'as',
                                         'jokes': jokes
