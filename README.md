@@ -1,7 +1,7 @@
 joke
 ====
 
-logowanie [DONE]
+logowanie [DONE] <br>
 rejestracja[DONE]
 uprawnienia moderatorów[DONE]
 dodawanie moderatorów[DONE]
