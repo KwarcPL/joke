@@ -2,9 +2,9 @@ joke
 ====
 
 logowanie [DONE] <br>
-rejestracja[DONE]
-uprawnienia moderatorów[DONE]
-dodawanie moderatorów[DONE]
-uprawnienia dodawania żartów[DONE]
-szablon strony [DONE] - style mozna zmieniać 
+rejestracja[DONE] <br>
+uprawnienia moderatorów[DONE] <br>
+dodawanie moderatorów[DONE] <br>
+uprawnienia dodawania żartów[DONE] <br>
+szablon strony [DONE] - style mozna zmieniać  <br>
 
