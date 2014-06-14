@@ -26,7 +26,8 @@ def home(request):
     else:    
         return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
 
-
+def wait(request):
+    return HttpResponse(get_template('wait.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0'})))
 
 def login(request):
     if request.method == 'POST':

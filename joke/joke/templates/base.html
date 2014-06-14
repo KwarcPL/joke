@@ -5,7 +5,7 @@
 <link href="{% static "style.css" %}" rel="stylesheet" >
 
 <div class="menu">
-    <a href="/home" class="button">Główna</a>    <a href="/home" class="button">Poczekalnia</a>   <a href="/home" class="button">Szukaj</a>  
+    <a href="/home" class="button">Główna</a>    <a href="/wait" class="button">Poczekalnia</a>   <a href="/home" class="button">Szukaj</a>
 
     {% if state == '0' %}
     <a  class="button" href="/login" > Zaloguj</a> <a  class="button" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
@@ -22,10 +22,10 @@
 </head>
 <body>
 {% block content %}
-    <h2>Świeżynki</h2>
+    <h2>Poczekalnia</h2>
     <ul>
-        {% for joke in Joke %}
-            <li>{{ Joke.joke_text }}</li>
+        {% for joke in object_list %}
+            <li>{{ joke.joke_text }}</li>
         {% endfor %}
     </ul>
 {% endblock %}

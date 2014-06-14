@@ -5,6 +5,8 @@ from zartomat.views import login
 from zartomat.views import logout
 from zartomat.views import register
 from zartomat.views import addjoke
+from django.views.generic import ListView
+from zartomat.models import Joke
 
 from django.contrib import admin
 admin.autodiscover()
@@ -18,5 +20,5 @@ urlpatterns = patterns('',
     url(r'^register[/]?$',register),
     url(r'^addjoke[/]?$',addjoke),
     url(r'', home),
-    
+    (r'^wait/$', ListView.as_view(model=Joke,)),
 )
