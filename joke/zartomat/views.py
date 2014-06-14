@@ -37,6 +37,7 @@ def wait(request):
                                         'state': '0',
                                         "title" : 'Poczekalnia',
                                         'accepted': 0,
+                                        'user' : "",
                                         'jokes' : jokes
                                             }, context_instance=RequestContext(request))
 
@@ -47,6 +48,7 @@ def wait(request):
                                         'state': '1',
                                         'title': 'Poczeklania',
                                         'accepted': 0,
+                                        'user' : request.user.get_username(),
                                         'jokes': jokes
                                             }, context_instance=RequestContext(request))
 

@@ -31,6 +31,15 @@ border-collapse:collapse;
 {% block content %}
 <table class = "reference" style="width:auto" frame = "box">
     <tbody>
+    <tr>
+        <td>Kawał</td>
+        <td>Data publikacji</td>
+        <td>Ocena</td>
+        <td>Tagi</td>
+        <td>Autor</td>
+        <td>Edytuj</td>
+        <td>Usuń</td>
+    </tr>
     {% for joke in jokes %}
         {% if joke.accepted == accepted %}
             <tr>
@@ -39,6 +48,13 @@ border-collapse:collapse;
                 <td>{{ joke.rate }}</td>
                 <td>{{ joke.tags }}</td>
                 <td>{{ joke.author }}</td>
+                {% if joke.author == user or user == 'admin'  %}
+                    <td>Edit</td>
+                    <td>Delete</td>
+                {% else %}
+                    <td></td>
+                    <td></td>
+                {% endif %}
             </tr>
         {% endif %}
     {% endfor %}
