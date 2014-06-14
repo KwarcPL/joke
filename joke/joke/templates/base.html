@@ -21,7 +21,14 @@
 </div>
 </head>
 <body>
-{% block content %} {% endblock %}
+{% block content %}
+    <h2>Świeżynki</h2>
+    <ul>
+        {% for joke in Joke %}
+            <li>{{ Joke.joke_text }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
 
 {% block footer %}
 <hr>
