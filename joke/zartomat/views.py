@@ -21,18 +21,20 @@ def modUsersList(request):
     return HttpResponse(get_template('moduserslist.html').render(Context({'list' : userlist})))
 
 def home(request):
+    jokes = Joke.objects.all()
     if isinstance(request.user,AnonymousUser):
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0'})))
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0', 'jokes' : jokes, 'accepted' : 1})))
     else:    
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
+        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : 1})))
 
 def wait(request):
     jokes = Joke.objects.all()
     if  isinstance(request.user,AnonymousUser):
         return render_to_response('wait.html', {
                                         'state': '0',
-                                        "title": 'Poczekalnia',
-                                        'jokes': jokes
+                                        "title" : 'Poczekalnia',
+                                        'accepted': 0,
+                                        'jokes' : jokes
                                             }, context_instance=RequestContext(request))
 
 
@@ -40,7 +42,8 @@ def wait(request):
     else:    
         return render_to_response('wait.html', {
                                         'state': '1',
-                                        "title": 'Poczeklania',
+                                        'title': 'Poczeklania',
+                                        'accepted': 0,
                                         'jokes': jokes
                                             }, context_instance=RequestContext(request))
 

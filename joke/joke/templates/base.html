@@ -28,7 +28,22 @@ border-collapse:collapse;
 </style>
 </head>
 <body>
-{% block content %}{% endblock %}
+{% block content %}
+<table class = "reference" style="width:auto" frame = "box">
+    <tbody>
+    {% for joke in jokes %}
+        {% if joke.accepted == accepted %}
+            <tr>
+                <td>{{ joke.joke_text }}</td>
+                <td>{{ joke.published_date  }}</td>
+                <td>{{ joke.rate }}</td>
+                <td>{{ joke.tags }}</td>
+                <td>{{ joke.author }}</td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>{% endblock %}
 
 {% block footer %}
 <hr>
