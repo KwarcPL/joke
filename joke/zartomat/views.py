@@ -28,8 +28,19 @@ def home(request):
 
 def wait(request):
     jokes = Joke.objects.all()
-    return render_to_response('wait.html', {
-                                        "title": 'as',
+    if  isinstance(request.user,AnonymousUser):
+        return render_to_response('wait.html', {
+                                        'state': '0',
+                                        "title": 'Poczekalnia',
+                                        'jokes': jokes
+                                            }, context_instance=RequestContext(request))
+
+
+        
+    else:    
+        return render_to_response('wait.html', {
+                                        'state': '1',
+                                        "title": 'Poczeklania',
                                         'jokes': jokes
                                             }, context_instance=RequestContext(request))
 
