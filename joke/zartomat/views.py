@@ -27,7 +27,11 @@ def home(request):
         return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
 
 def wait(request):
-    return HttpResponse(get_template('wait.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0'})))
+    template = get_template("wait.html")
+    jokes = Joke.objects.all()
+    variables = RequestContext(request,{'jokes':jokes})
+    output = template.render(variables)
+    return HttpResponse(output)
 
 def login(request):
     if request.method == 'POST':
@@ -39,10 +43,10 @@ def login(request):
             return HttpResponseRedirect("/loginaaa/")
         else:
             return HttpResponseRedirect("/loginsad/")
-    
+
     if not isinstance(request.user,AnonymousUser):
         return HttpResponseRedirect("/home/")
-    
+
     return render_to_response('login.html', {
                                         "title": 'login',
                                         "state": '0',
