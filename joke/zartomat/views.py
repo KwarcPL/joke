@@ -27,14 +27,16 @@ def home(request):
         return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1'})))
 
 def wait(request):
-    template = get_template("wait.html")
-    jokes = Joke.objects.all()
-    variables = RequestContext(request,{'jokes':jokes})
-    output = template.render(variables)
-    return HttpResponse(output)
+    jokes = [x.joke_text for x in Joke.objects.all()]
+    print jokes
+    return render_to_response('wait.html', {
+                                        "title": 'as',
+                                        'jokes': jokes
+                                            }, context_instance=RequestContext(request))
+
 
 def login(request):
-    """if request.method == 'POST':
+    if request.method == 'POST':
         username = request.POST.get('username','')
         password = request.POST.get('password','')
         user = auth.authenticate(username=username, password=password)
@@ -50,12 +52,7 @@ def login(request):
     return render_to_response('login.html', {
                                         "title": 'login',
                                         "state": '0',
-                                            }, context_instance=RequestContext(request))"""
-    template = get_template("wait.html")
-    jokes = Joke.objects.all()
-    variables = RequestContext(request,{'jokes':jokes})
-    output = template.render(variables)
-    return HttpResponse(output)
+                                            }, context_instance=RequestContext(request))
 
 
 def register(request):

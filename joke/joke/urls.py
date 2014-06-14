@@ -1,5 +1,6 @@
 from django.conf.urls import patterns, include, url
-from zartomat.views import modUsersList, wait
+from zartomat.views import modUsersList
+from zartomat.views import wait
 from zartomat.views import home
 from zartomat.views import login
 from zartomat.views import logout
@@ -17,6 +18,6 @@ urlpatterns = patterns('',
     url(r'^logout[/]?$',logout),
     url(r'^register[/]?$',register),
     url(r'^addjoke[/]?$',addjoke),
+    url(r'^wait[/]?$', wait),
     url(r'', home),
-    url(r'^wait', wait),
 )

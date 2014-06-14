@@ -1,14 +1,15 @@
 {% extends "base.html" %}
+{% block title %} {{title}} {% endblock %}
 {% block content %}
+
 <h2>Oczekujące</h2>
 <table border="0px" width="70%">
   {% for joke in jokes %}
   <tr style="text-align:center;">
     <td style="text-align:left;font-size:14pt;">
-       <p class="br">{{joke.joke_text}}
+        <p class="br">{{ joke }}
     </td>
   </tr>
   {% endfor %}
 </table>
 {% endblock %}
-{% block title %} {{title}} {% endblock %}
