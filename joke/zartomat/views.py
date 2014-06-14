@@ -4,13 +4,13 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context, RequestContext
-from zartomat.forms import LoginForm
+from zartomat.forms import LoginForm, AddJokeForm
 from django.contrib import auth
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import AnonymousUser, Permission
-
-
+from zartomat.models import Joke
+from datetime import date
 
 class user(object):
     def __init__ (name):
@@ -66,7 +66,31 @@ def register(request):
                                         "form": form,
                                             }, context_instance=RequestContext(request))
 
-   
+def addjoke(request):
+    if  isinstance(request.user,AnonymousUser) :
+        return HttpResponseRedirect("/home/")
+
+    if request.method == 'POST':
+        form = AddJokeForm(request.POST)
+        if form.is_valid():
+            newjoke = Joke()
+            newjoke.joke_text = form.cleaned_data['joke']
+            newjoke.tags =  form.cleaned_data['tags']
+            newjoke.accepted = 0
+            newjoke.rate = 0
+            newjoke.number_of_grades = 0
+            newjoke.author = request.user.get_username()
+            newjoke.published_date = date.today()
+            newjoke.save()
+        return HttpResponseRedirect("/home/")
+    else:
+        form = AddJokeForm()
+    return render_to_response('addjoke.html', {
+                                        "state": '1',
+                                        "form": form,
+                                            }, context_instance=RequestContext(request))
+
+  
 
 
 def logout(request):

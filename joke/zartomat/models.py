@@ -8,7 +8,5 @@ class Joke(models.Model):
     rate = models.IntegerField('rate')
     number_of_grades = models.IntegerField('number_of_grades')
     tags = models.CharField('tags', max_length=100)
+    author = models.CharField('author', max_length=50)
 
-
-    class Meta:
-        permissions = (("add_joke", "Can add joke"))
