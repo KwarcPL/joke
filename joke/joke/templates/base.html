@@ -19,6 +19,7 @@
     {% endif %}
 
 </div>
+<hr>
 <style>
 table,th,td
 {
@@ -29,16 +30,16 @@ border-collapse:collapse;
 </head>
 <body>
 {% block content %}
-<table class = "reference" style="width:auto" frame = "box">
+<table class = "table" frame = "box">
     <tbody>
     <tr>
-        <td>Kawał</td>
-        <td>Data publikacji</td>
-        <td>Ocena</td>
-        <td>Tagi</td>
-        <td>Autor</td>
-        <td>Edytuj</td>
-        <td>Usuń</td>
+        <td><b>Kawał</b></td>
+        <td><b>Data publikacji</b></td>
+        <td><b>Ocena</b></td>
+        <td><b>Tagi</b></td>
+        <td><b>Autor</b></td>
+        <td><b>Edytuj</b></td>
+        <td><b>Usuń</b></td>
     </tr>
     {% for joke in jokes %}
         {% if joke.accepted == accepted %}
@@ -49,8 +50,8 @@ border-collapse:collapse;
                 <td>{{ joke.tags }}</td>
                 <td>{{ joke.author }}</td>
                 {% if joke.author == user or user == 'admin'  %}
-                    <td>Edit</td>
-                    <td>Delete</td>
+                    <td><a href="{% url "joke_edit" joke.id %}">Edit</a></td>
+                    <td><a href="{% url "joke_delete" joke.id %}">Delete</a></td>
                 {% else %}
                     <td></td>
                     <td></td>

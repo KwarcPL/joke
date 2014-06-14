@@ -121,3 +121,26 @@ def addjoke(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/logoutqwe/")
+
+def joke_edit(request, pk):
+    joke = Joke.objects.get(id = pk)
+    if request.method == 'POST':
+        form = AddJokeForm(request.POST)
+        if form.is_valid():
+            joke.joke_text = form.cleaned_data['joke']
+            joke.tags =  form.cleaned_data['tags']
+            joke.save()
+        return HttpResponseRedirect("/home/")
+    else:
+        form = AddJokeForm()
+    return render_to_response('addjoke.html', {
+                                        "state": '1',
+                                        "form": form,
+                                            }, context_instance=RequestContext(request))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+def joke_delete(request, pk):
+    joke = Joke.objects.get(id = pk)
+    joke.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
