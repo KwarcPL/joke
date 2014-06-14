@@ -18,5 +18,5 @@ urlpatterns = patterns('',
     url(r'^register[/]?$',register),
     url(r'^addjoke[/]?$',addjoke),
     url(r'', home),
-    url(r'^wait', wait),
+    url(r'^wait[/]?$', wait),
 )

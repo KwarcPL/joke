@@ -34,7 +34,7 @@ def wait(request):
     return HttpResponse(output)
 
 def login(request):
-    """if request.method == 'POST':
+    if request.method == 'POST':
         username = request.POST.get('username','')
         password = request.POST.get('password','')
         user = auth.authenticate(username=username, password=password)
@@ -50,12 +50,7 @@ def login(request):
     return render_to_response('login.html', {
                                         "title": 'login',
                                         "state": '0',
-                                            }, context_instance=RequestContext(request))"""
-    template = get_template("wait.html")
-    jokes = Joke.objects.all()
-    variables = RequestContext(request,{'jokes':jokes})
-    output = template.render(variables)
-    return HttpResponse(output)
+                                            }, context_instance=RequestContext(request))
 
 
 def register(request):

@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Oczekujące</h2>
-<table border="0px" width="70%">
-  {% for joke in jokes %}
-  <tr style="text-align:center;">
-    <td style="text-align:left;font-size:14pt;">
-       <p class="br">{{joke.joke_text}}
-    </td>
-  </tr>
-  {% endfor %}
+<table class = "reference" style="width:auto" frame = "box">
+    <tbody>
+    {% for joke in jokes %}
+        {% if joke.accepted == false %}
+        <tr>
+            <td>{{ joke.joke_text }}</td>
+            <td>{{ joke.date_published }}</td>
+            <td>{{ joke.rate }}</td>
+            <td>{{ joke.tags }}</td>
+            <td>{{ joke.author }}</td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+    </tbody>
 </table>
 {% endblock %}
 {% block title %} {{title}} {% endblock %}
