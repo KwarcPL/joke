@@ -153,7 +153,7 @@ def joke_accept(request, pk):
 
 def search(request):
     if request.method == 'POST':
-        form = SearchForm()
+        form = SearchForm(request.POST)
         accepted = 0
         jokes = Joke.objects.all()
         """te filtrowanie nie działa, jakby ktoś się nudził to może rozkminić"""
@@ -164,12 +164,18 @@ def search(request):
             jokes = jokes.filter(form.cleaned_data['accepted'])
             accepted = jokes.filter(form.cleaned_data['accepted'])
         if isinstance(request.user,AnonymousUser):
-            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": "" , 'state':'0', 'jokes' : jokes, 'accepted' : accepted})))
+            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": '' , 'state': '0', 'jokes' : jokes, 'accepted' : accepted})))
         else:
             return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : accepted})))
     else:
         form = SearchForm()
-    return render_to_response('search.html', {
+    if isinstance(request.user,AnonymousUser):
+        return render_to_response('search.html', {
+                                        "state": '0',
+                                        "form": form,
+                                            }, context_instance=RequestContext(request))
+    else:
+        return render_to_response('search.html', {
                                         "state": '1',
                                         "form": form,
                                             }, context_instance=RequestContext(request))
