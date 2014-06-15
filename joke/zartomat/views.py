@@ -154,23 +154,24 @@ def joke_accept(request, pk):
 def search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
-        tags = ''
-        author = ''
-        rate = 0
-        accepted = 0
-        if(form.data.has_key('tags')):
-            tags = form.data['tags']
-        if(form.data.has_key('author')):
-            author = form.data['author']
-        if(form.data.has_key('rate')):
-            rate = form.data['rate']
-        if(form.data.has_key('accepted')):
-            accepted = form.data['accepted']
+        acceptedGet = 0
         jokes = Joke.objects.all()
+        if(form.data.has_key('tags')):
+            if(form.data['tags'] != ''):
+                jokes = jokes.filter(tags = form.data['tags'])
+        if(form.data.has_key('author')):
+            if(form.data['author'] != ''):
+                jokes = jokes.filter(author = form.data['author'])
+        if(form.data.has_key('rate')):
+            if(form.data['rate'] != ''):
+                jokes = jokes.filter(rate = form.data['rate'])
+        if(form.data.has_key('accepted')):
+            acceptedGet = form.data['accepted']
+        jokes = jokes.filter(accepted = acceptedGet)
         if isinstance(request.user,AnonymousUser):
-            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": '' , 'state': '0', 'jokes' : jokes, 'accepted' : accepted})))
+            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": '' , 'state': '0', 'jokes' : jokes, 'accepted' : acceptedGet})))
         else:
-            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : accepted})))
+            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : acceptedGet})))
     else:
         form = SearchForm()
     if isinstance(request.user,AnonymousUser):
