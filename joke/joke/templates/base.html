@@ -15,18 +15,19 @@
 <link href="{% static "style.css" %}" rel="stylesheet" >
 
 <div class="navbar navbar-inverse navbar-fixed-top" >
+
     <div class="container">
         <div class="navbar-header">
 
-    <a href="/home" class="btn btn-default">Główna</a>    <a href="/wait" class="btn btn-default">Poczekalnia</a>   <a href="/search" class="btn btn-default">Szukaj</a>
+    <a href="/home" class="btn btn-link">Główna</a>    <a href="/wait" class="btn btn-link">Poczekalnia</a>   <a href="/search" class="btn btn-link">Szukaj</a>
 
     {% if state == '0' %}
-    <a  class="btn btn-default" href="/login" > Zaloguj</a> <a  class="btn btn-default" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
+    <a  class="btn btn-link" href="/login" > Zaloguj</a> <a  class="btn btn-link" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
     {% else %}
 
-    <a class="btn btn-default" href="/addjoke">Dodaj</a>    <a class="btn btn-default" href="/profile">{{user}}</a> <a class="btn btn-default"  href="/logout">Wyloguj</a>
+    <a class="btn btn-link" href="/addjoke">Dodaj</a>    <a class="btn btn-link" href="/profile">{{user}}</a> <a class="btn btn-link"  href="/logout">Wyloguj</a>
         {% if user == 'admin' %}
-        <a class="btn btn-default" href="/admin">Panel administracyjny</a>
+        <a class="btn btn-link" href="/admin">Panel administracyjny</a>
         {% endif %}
 
     {% endif %}
@@ -81,13 +82,17 @@
 
 {% block footer %}
 <hr>
-<p>Żartomat &copy 2014</p>
+
 {% endblock %}
 
 </div>
     </div>
 <!-- Latest compiled and minified JavaScript -->
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+<div class="container">
+    <p class="text-right" class="lead">ŻARToMAT &copy 2014</p>
+</div>
 
 </body>
 </html>

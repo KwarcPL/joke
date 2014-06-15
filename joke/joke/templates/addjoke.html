@@ -3,11 +3,10 @@
 {% block title %} Add a joke {% endblock %}
 
 {% block content %}
-<h1>Add a joke</h1>
+    <h1>Add a joke</h1>
 
-<form action="" method="post">{% csrf_token %}
-
-{{ form.as_p }}
-<input type="submit" value="Add joke">
-                           </form>
+    <form action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-default" value="Add joke">
+    </form>
 {% endblock %}
