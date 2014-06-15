@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template.loader import get_template
 from django.template import Context, RequestContext
-from zartomat.forms import LoginForm, AddJokeForm
+from zartomat.forms import LoginForm, AddJokeForm, SearchForm
 from django.contrib import auth
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
@@ -23,9 +23,9 @@ def modUsersList(request):
 def home(request):
     jokes = Joke.objects.all()
     if isinstance(request.user,AnonymousUser):
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user": "" , 'state':'0', 'jokes' : jokes, 'accepted' : 1})))
+        return HttpResponse(get_template('home.html').render(Context({'title':'Żartomat', "user": "" , 'state':'0', 'jokes' : jokes, 'accepted' : 1})))
     else:    
-        return HttpResponse(get_template('home.html').render(Context({'title':u'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : 1})))
+        return HttpResponse(get_template('home.html').render(Context({'title':'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : 1})))
 
 def wait(request):
     jokes = Joke.objects.all()
@@ -100,7 +100,7 @@ def addjoke(request):
         if form.is_valid():
             newjoke = Joke()
             newjoke.joke_text = form.cleaned_data['joke']
-            newjoke.tags =  form.cleaned_data['tags']
+            newjoke.tags = form.cleaned_data['tags']
             newjoke.accepted = 0
             newjoke.rate = 0
             newjoke.number_of_grades = 0
@@ -143,4 +143,35 @@ def joke_edit(request, pk):
 def joke_delete(request, pk):
     joke = Joke.objects.get(id = pk)
     joke.delete()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+def joke_accept(request, pk):
+    joke = Joke.objects.get(id = pk)
+    joke.accepted = not joke.accepted
+    joke.save()
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+
+def search(request):
+    if request.method == 'POST':
+        form = SearchForm()
+        accepted = 0
+        jokes = Joke.objects.all()
+        """te filtrowanie nie działa, jakby ktoś się nudził to może rozkminić"""
+        if form.is_valid():
+            jokes = jokes.filter(form.cleaned_data['tags'])
+            jokes = jokes.filter(form.cleaned_data['author'])
+            jokes = jokes.filter(form.cleaned_data['rate'])
+            jokes = jokes.filter(form.cleaned_data['accepted'])
+            accepted = jokes.filter(form.cleaned_data['accepted'])
+        if isinstance(request.user,AnonymousUser):
+            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": "" , 'state':'0', 'jokes' : jokes, 'accepted' : accepted})))
+        else:
+            return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user" : request.user.get_username(),'state' :'1', 'jokes' : jokes, 'accepted' : accepted})))
+    else:
+        form = SearchForm()
+    return render_to_response('search.html', {
+                                        "state": '1',
+                                        "form": form,
+                                            }, context_instance=RequestContext(request))
+
     return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))

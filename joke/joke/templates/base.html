@@ -5,7 +5,7 @@
 <link href="{% static "style.css" %}" rel="stylesheet" >
 
 <div class="menu">
-    <a href="/home" class="button">Główna</a>    <a href="/wait" class="button">Poczekalnia</a>   <a href="/home" class="button">Szukaj</a>
+    <a href="/home" class="button">Główna</a>    <a href="/wait" class="button">Poczekalnia</a>   <a href="/search" class="button">Szukaj</a>
 
     {% if state == '0' %}
     <a  class="button" href="/login" > Zaloguj</a> <a  class="button" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
@@ -40,6 +40,7 @@ border-collapse:collapse;
         <td><b>Autor</b></td>
         <td><b>Edytuj</b></td>
         <td><b>Usuń</b></td>
+        <td><b>Akceptuj</b></td>
     </tr>
     {% for joke in jokes %}
         {% if joke.accepted == accepted %}
@@ -52,6 +53,9 @@ border-collapse:collapse;
                 {% if joke.author == user or user == 'admin'  %}
                     <td><a href="{% url "joke_edit" joke.id %}">Edit</a></td>
                     <td><a href="{% url "joke_delete" joke.id %}">Delete</a></td>
+                    {% if user == 'admin' %}
+                        <td><a href="{% url "joke_accept" joke.id %}">Yes/No</a></td>
+                    {% endif %}
                 {% else %}
                     <td></td>
                     <td></td>
