@@ -12,4 +12,4 @@ lista żartów [DONE] - na głównej i w poczekalni <br>
 usuwanie, edycja i akceptacja żartów [DONE] <br>
 formularz wyszukiwnaia [DONE] <br>
 lista wyszukanych zartów [DONE] <br>
-filtrowanie żartów [NEED HELP] <br>
+filtrowanie żartów [DONE] <br>
