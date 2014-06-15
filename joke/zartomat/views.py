@@ -154,15 +154,19 @@ def joke_accept(request, pk):
 def search(request):
     if request.method == 'POST':
         form = SearchForm(request.POST)
+        tags = ''
+        author = ''
+        rate = 0
         accepted = 0
+        if(form.data.has_key('tags')):
+            tags = form.data['tags']
+        if(form.data.has_key('author')):
+            author = form.data['author']
+        if(form.data.has_key('rate')):
+            rate = form.data['rate']
+        if(form.data.has_key('accepted')):
+            accepted = form.data['accepted']
         jokes = Joke.objects.all()
-        """te filtrowanie nie działa, jakby ktoś się nudził to może rozkminić"""
-        if form.is_valid():
-            jokes = jokes.filter(form.cleaned_data['tags'])
-            jokes = jokes.filter(form.cleaned_data['author'])
-            jokes = jokes.filter(form.cleaned_data['rate'])
-            jokes = jokes.filter(form.cleaned_data['accepted'])
-            accepted = jokes.filter(form.cleaned_data['accepted'])
         if isinstance(request.user,AnonymousUser):
             return HttpResponse(get_template('list.html').render(Context({'title':'Żartomat', "user": '' , 'state': '0', 'jokes' : jokes, 'accepted' : accepted})))
         else:
