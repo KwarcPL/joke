@@ -53,7 +53,9 @@
         <td><b>Autor</b></td>
         <td><b>Edytuj</b></td>
         <td><b>Usuń</b></td>
-        <td><b>Akceptuj</b></td>
+        {% if user == 'admin' %}
+            <td><b>Akceptuj</b></td>
+        {% endif %}
     </tr>
     {% for joke in jokes %}
         {% if joke.accepted == accepted %}
