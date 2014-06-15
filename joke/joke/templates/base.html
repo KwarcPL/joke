@@ -1,36 +1,48 @@
 <html>
 <head>
+
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+
+
 <title> {% block title %}  {% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 {% load staticfiles %}
 <link href="{% static "style.css" %}" rel="stylesheet" >
 
-<div class="menu">
-    <a href="/home" class="button">Główna</a>    <a href="/wait" class="button">Poczekalnia</a>   <a href="/search" class="button">Szukaj</a>
+<div class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container">
+        <div class="navbar-header">
+
+    <a href="/home" class="btn btn-default">Główna</a>    <a href="/wait" class="btn btn-default">Poczekalnia</a>   <a href="/search" class="btn btn-default">Szukaj</a>
 
     {% if state == '0' %}
-    <a  class="button" href="/login" > Zaloguj</a> <a  class="button" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
+    <a  class="btn btn-default" href="/login" > Zaloguj</a> <a  class="btn btn-default" href="/register">Rejestracja</a>[foo,foo or admin,admin or bar,bar]
     {% else %}
-    
-    <a class="button" href="/addjoke">Dodaj</a>    <a class="button" href="/profile">{{user}}</a> <a class="button"  href="/logout">Wyloguj</a>
+
+    <a class="btn btn-default" href="/addjoke">Dodaj</a>    <a class="btn btn-default" href="/profile">{{user}}</a> <a class="btn btn-default"  href="/logout">Wyloguj</a>
         {% if user == 'admin' %}
-        <a class="button" href="/admin">Panel administracyjny</a>
+        <a class="btn btn-default" href="/admin">Panel administracyjny</a>
         {% endif %}
 
     {% endif %}
-
+</div>
+        </div>
 </div>
 <hr>
-<style>
-table,th,td
-{
-border:1px solid black;
-border-collapse:collapse;
-}
-</style>
+
 </head>
 <body>
+
+<div class="jumbotron">
+      <div class="container">
+
 {% block content %}
-<table class = "table" frame = "box">
+<table class = "table">
     <tbody>
     <tr>
         <td><b>Kawał</b></td>
@@ -63,6 +75,7 @@ border-collapse:collapse;
             </tr>
         {% endif %}
     {% endfor %}
+    <script src="http://code.jquery.com/jquery.js"></script>
     </tbody>
 </table>{% endblock %}
 
@@ -70,5 +83,11 @@ border-collapse:collapse;
 <hr>
 <p>Żartomat &copy 2014</p>
 {% endblock %}
+
+</div>
+    </div>
+<!-- Latest compiled and minified JavaScript -->
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
 </body>
 </html>
